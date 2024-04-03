@@ -1,0 +1,26 @@
+{
+  "ModId": "gbfr.fix.matchmaking",
+  "ModName": "GBFR Worldwide Matchmaking",
+  "ModAuthor": "Nenkai",
+  "ModVersion": "1.0.0",
+  "ModDescription": "Allows worldwide open matchmaking in GBFR. The region settings is configurable by right clicking on this mod and clicking \"Configure\".",
+  "ModDll": "gbfr.fix.matchmaking.dll",
+  "ModIcon": "Preview.png",
+  "ModR2RManagedDll32": "x86/gbfr.fix.matchmaking.dll",
+  "ModR2RManagedDll64": "x64/gbfr.fix.matchmaking.dll",
+  "ModNativeDll32": "",
+  "ModNativeDll64": "",
+  "IsLibrary": false,
+  "ReleaseMetadataFileName": "gbfr.fix.matchmaking.ReleaseMetadata.json",
+  "PluginData": {},
+  "IsUniversalMod": false,
+  "ModDependencies": [
+    "Reloaded.Memory.SigScan.ReloadedII",
+    "reloaded.sharedlib.hooks"
+  ],
+  "OptionalDependencies": [],
+  "SupportedAppId": [
+    "granblue_fantasy_relink.exe"
+  ],
+  "ProjectUrl": ""
+}
