@@ -34,15 +34,28 @@ namespace gbfr.fix.matchmaking.Configuration
         public ELobbyDistanceFilter LobbyDistanceFilter { get; set; } = ELobbyDistanceFilter.ELobbyDistanceFilterWorldwide;
 
         [DisplayName("Join Lobby Attempts")]
-        [Description("Number of attempts until the game consider joining a lobby a fail. An attempt is made every 3 seconds. Vanilla is 7-10 attempts.")]
+        [Description("Number of attempts until the game consider joining a lobby a fail. An attempt is made every 3 seconds. \n" +
+            "Vanilla is 7-10 attempts. Mod default is 20. 0 will skip any join phase.\n")]
         [DefaultValue(20)]
-        [SliderControlParams(minimum: 1.0, maximum: 100.0, smallChange: 1.0, largeChange: 10.0, tickFrequency: 10,
+        [SliderControlParams(minimum: 0.0, maximum: 100.0, smallChange: 1.0, largeChange: 10.0, tickFrequency: 10,
             isSnapToTickEnabled: false,
             tickPlacement: SliderControlTickPlacement.BottomRight,
             showTextField: true,
             isTextFieldEditable: true,
             textValidationRegex: "\\d{1-3}")]
         public int NumAttempts { get; set; } = 20;
+
+        [DisplayName("Lobby Fill Timeout")]
+        [Description("Number of seconds to wait for a created lobby to be full (after joining has failed), before being automatically disbanded.\n" +
+            "Vanilla is 30s. Mod default is 60s.\n")]
+        [DefaultValue(60)]
+        [SliderControlParams(minimum: 20.0, maximum: 300.0, smallChange: 1.0, largeChange: 10.0, tickFrequency: 10,
+            isSnapToTickEnabled: false,
+            tickPlacement: SliderControlTickPlacement.BottomRight,
+            showTextField: true,
+            isTextFieldEditable: true,
+            textValidationRegex: "\\d{1-3}")]
+        public int LobbyFillTimeout { get; set; } = 60;
 
         public enum ELobbyDistanceFilter
         {

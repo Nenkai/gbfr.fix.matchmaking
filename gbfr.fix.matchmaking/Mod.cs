@@ -56,7 +56,10 @@ public unsafe class Mod : ModBase // <= Do not Remove.
     private static IStartupScanner? _startupScanner = null!;
 
     private IHook<SetNumAttempts> _setNumAttemptsHook;
+    private IHook<CreateLobbyInternal> _createLobbyInternal;
+
     public delegate void SetNumAttempts(byte* a1);
+    public delegate void CreateLobbyInternal(byte* a1, byte* a2, byte* a3, byte* a4);
 
     public Mod(ModContext context)
     {
@@ -93,6 +96,13 @@ public unsafe class Mod : ModBase // <= Do not Remove.
             _setNumAttemptsHook = _hooks.CreateHook<SetNumAttempts>(SetNumAttemptsHook, address).Activate();
             _logger.WriteLine($"[gbfr.fix.matchmaking] Successfully hooked SetNumAttempts (num attempts: {_configuration.NumAttempts})", _logger.ColorGreen);
         });
+
+        // Part of a function called inside a function of hw::network::LobbySystem
+        SigScan("55 41 57 41 56 41 55 41 54 56 57 53 48 81 EC ?? ?? ?? ?? 48 8D AC 24 ?? ?? ?? ?? 48 83 E4 ?? 48 89 E3 48 89 AB ?? ?? ?? ?? 48 C7 45 ?? ?? ?? ?? ?? 4D 89 CE 4C 89 C7", "", address =>
+        {
+            _createLobbyInternal = _hooks.CreateHook<CreateLobbyInternal>(CreateLobbyInternalHook, address).Activate();
+            _logger.WriteLine($"[gbfr.fix.matchmaking] Successfully hooked CreateLobbyInternal", _logger.ColorGreen);
+        });
     }
 
     private static void SigScan(string pattern, string name, Action<nint> action)
@@ -111,9 +121,20 @@ public unsafe class Mod : ModBase // <= Do not Remove.
     private void SetNumAttemptsHook(byte* a1)
     {
         _setNumAttemptsHook.OriginalFunction(a1);
-        _logger.WriteLine($"[gbfr.fix.matchmaking] SetNumAttempts intercepted (original num attempts: {*(int*)(a1 + 0x88)}, new: {_configuration.NumAttempts})");
 
-        *(int*)(a1 + 0x88) = _configuration.NumAttempts;
+        if (a1 is not null && *(int*)(a1 + 0x88) > 0)
+        {
+            _logger.WriteLine($"[gbfr.fix.matchmaking] SetNumAttempts intercepted (original num attempts: {*(int*)(a1 + 0x88)}, new: {_configuration.NumAttempts})");
+            *(int*)(a1 + 0x88) = _configuration.NumAttempts;
+        }
+    }
+
+    private void CreateLobbyInternalHook(byte* a1, byte* a2, byte* a3, byte* a4)
+    {
+        _createLobbyInternal.OriginalFunction(a1, a2, a3, a4);
+        _logger.WriteLine($"[gbfr.fix.matchmaking] CreateLobbyInternalHook intercepted (original timeout: {(*(int*)(a1 + 0x18)) / 1000}ms, new: {_configuration.LobbyFillTimeout})");
+
+        *(int*)(a1 + 0x18) = _configuration.LobbyFillTimeout * 1000;
     }
 
     #region Standard Overrides
