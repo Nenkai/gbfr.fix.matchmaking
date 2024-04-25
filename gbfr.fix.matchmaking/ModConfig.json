@@ -2,7 +2,7 @@
   "ModId": "gbfr.fix.matchmaking",
   "ModName": "GBFR Worldwide Matchmaking",
   "ModAuthor": "Nenkai",
-  "ModVersion": "1.0.0",
+  "ModVersion": "1.0.1",
   "ModDescription": "Allows worldwide open matchmaking in GBFR. The region settings is configurable by right clicking on this mod and clicking \"Configure\".",
   "ModDll": "gbfr.fix.matchmaking.dll",
   "ModIcon": "Preview.png",
@@ -12,7 +12,14 @@
   "ModNativeDll64": "",
   "IsLibrary": false,
   "ReleaseMetadataFileName": "gbfr.fix.matchmaking.ReleaseMetadata.json",
-  "PluginData": {},
+  "PluginData": {
+    "GitHubRelease": {
+      "UserName": "Nenkai",
+      "RepositoryName": "gbfr.fix.matchmaking",
+      "UseReleaseTag": true,
+      "AssetFileName": "Mod.zip"
+    }
+  },
   "IsUniversalMod": false,
   "ModDependencies": [
     "Reloaded.Memory.SigScan.ReloadedII",
