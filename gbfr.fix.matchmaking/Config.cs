@@ -47,7 +47,7 @@ namespace gbfr.fix.matchmaking.Configuration
 
         [DisplayName("Lobby Fill Timeout")]
         [Description("Number of seconds to wait for a created lobby to be full (after joining has failed), before being automatically disbanded.\n" +
-            "Vanilla is 30s. Mod default is 60s.\n")]
+            "Vanilla is 60s (30s before v1.2.1). Mod default is 60s.\n")]
         [DefaultValue(60)]
         [SliderControlParams(minimum: 20.0, maximum: 300.0, smallChange: 1.0, largeChange: 10.0, tickFrequency: 10,
             isSnapToTickEnabled: false,

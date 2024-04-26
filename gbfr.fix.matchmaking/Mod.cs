@@ -91,6 +91,8 @@ public unsafe class Mod : ModBase // <= Do not Remove.
         // To more easily find this function, a function in it has a string "invalid random_device value"
         // Find the function that matches:
         //   *(_DWORD *)(a1 + 136) = (unsigned __int8)(BYTE4(randValue) + 20) / 3u;
+
+        
         SigScan("56 57 B8 ?? ?? ?? ?? E8 ?? ?? ?? ?? 48 29 C4 48 89 CE", "", address =>
         {
             _setNumAttemptsHook = _hooks.CreateHook<SetNumAttempts>(SetNumAttemptsHook, address).Activate();
@@ -98,11 +100,13 @@ public unsafe class Mod : ModBase // <= Do not Remove.
         });
 
         // Part of a function called inside a function of hw::network::LobbySystem
-        SigScan("55 41 57 41 56 41 55 41 54 56 57 53 48 81 EC ?? ?? ?? ?? 48 8D AC 24 ?? ?? ?? ?? 48 83 E4 ?? 48 89 E3 48 89 AB ?? ?? ?? ?? 48 C7 45 ?? ?? ?? ?? ?? 4D 89 CE 4C 89 C7", "", address =>
+        // 1.2.1: 1437EF380
+        SigScan("55 41 57 41 56 41 55 41 54 56 57 53 48 83 EC ?? 48 8D 6C 24 ?? 48 83 E4 ?? 48 89 E3 48 89 6B ?? 48 C7 45 ?? ?? ?? ?? ?? 4D 89 CE", "", address =>
         {
             _createLobbyInternal = _hooks.CreateHook<CreateLobbyInternal>(CreateLobbyInternalHook, address).Activate();
             _logger.WriteLine($"[gbfr.fix.matchmaking] Successfully hooked CreateLobbyInternal", _logger.ColorGreen);
         });
+        
     }
 
     private static void SigScan(string pattern, string name, Action<nint> action)
@@ -132,6 +136,8 @@ public unsafe class Mod : ModBase // <= Do not Remove.
     private void CreateLobbyInternalHook(byte* a1, byte* a2, byte* a3, byte* a4)
     {
         _createLobbyInternal.OriginalFunction(a1, a2, a3, a4);
+
+        // 1.2.1 changed the default from 30s to 60s
         _logger.WriteLine($"[gbfr.fix.matchmaking] CreateLobbyInternalHook intercepted (original timeout: {(*(int*)(a1 + 0x18)) / 1000}ms, new: {_configuration.LobbyFillTimeout})");
 
         *(int*)(a1 + 0x18) = _configuration.LobbyFillTimeout * 1000;
