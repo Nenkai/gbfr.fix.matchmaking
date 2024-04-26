@@ -138,7 +138,7 @@ public unsafe class Mod : ModBase // <= Do not Remove.
         _createLobbyInternal.OriginalFunction(a1, a2, a3, a4);
 
         // 1.2.1 changed the default from 30s to 60s
-        _logger.WriteLine($"[gbfr.fix.matchmaking] CreateLobbyInternalHook intercepted (original timeout: {(*(int*)(a1 + 0x18)) / 1000}ms, new: {_configuration.LobbyFillTimeout})");
+        _logger.WriteLine($"[gbfr.fix.matchmaking] CreateLobbyInternalHook intercepted (original timeout: {(*(int*)(a1 + 0x18)) / 1000}s, new: {_configuration.LobbyFillTimeout})");
 
         *(int*)(a1 + 0x18) = _configuration.LobbyFillTimeout * 1000;
     }
