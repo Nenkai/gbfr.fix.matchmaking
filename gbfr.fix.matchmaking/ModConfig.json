@@ -2,7 +2,7 @@
   "ModId": "gbfr.fix.matchmaking",
   "ModName": "GBFR Worldwide Matchmaking",
   "ModAuthor": "Nenkai",
-  "ModVersion": "1.0.3",
+  "ModVersion": "1.0.4",
   "ModDescription": "Allows worldwide open matchmaking in GBFR \u0026 raised timeouts. The mod is configurable by right clicking on this mod and clicking \u0022Configure\u0022.",
   "ModDll": "gbfr.fix.matchmaking.dll",
   "ModIcon": "Preview.png",
