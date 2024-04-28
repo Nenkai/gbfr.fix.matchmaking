@@ -3,13 +3,16 @@
   "ModName": "GBFR Worldwide Matchmaking",
   "ModAuthor": "Nenkai",
   "ModVersion": "1.0.3",
-  "ModDescription": "Allows worldwide open matchmaking in GBFR & raised timeouts. The mod is configurable by right clicking on this mod and clicking \"Configure\".",
+  "ModDescription": "Allows worldwide open matchmaking in GBFR \u0026 raised timeouts. The mod is configurable by right clicking on this mod and clicking \u0022Configure\u0022.",
   "ModDll": "gbfr.fix.matchmaking.dll",
   "ModIcon": "Preview.png",
   "ModR2RManagedDll32": "x86/gbfr.fix.matchmaking.dll",
   "ModR2RManagedDll64": "x64/gbfr.fix.matchmaking.dll",
   "ModNativeDll32": "",
   "ModNativeDll64": "",
+  "Tags": [],
+  "CanUnload": false,
+  "HasExports": false,
   "IsLibrary": false,
   "ReleaseMetadataFileName": "gbfr.fix.matchmaking.ReleaseMetadata.json",
   "PluginData": {
@@ -18,6 +21,28 @@
       "RepositoryName": "gbfr.fix.matchmaking",
       "UseReleaseTag": true,
       "AssetFileName": "Mod.zip"
+    },
+    "GitHubDependencies": {
+      "IdToConfigMap": {
+        "Reloaded.Memory.SigScan.ReloadedII": {
+          "Config": {
+            "UserName": "Reloaded-Project",
+            "RepositoryName": "Reloaded.Memory.SigScan",
+            "UseReleaseTag": false,
+            "AssetFileName": "Mod.zip"
+          },
+          "ReleaseMetadataName": "Reloaded.Memory.SigScan.ReloadedII.ReleaseMetadata.json"
+        },
+        "reloaded.sharedlib.hooks": {
+          "Config": {
+            "UserName": "Sewer56",
+            "RepositoryName": "Reloaded.SharedLib.Hooks.ReloadedII",
+            "UseReleaseTag": true,
+            "AssetFileName": "reloaded.sharedlib.hooks.zip"
+          },
+          "ReleaseMetadataName": "Sewer56.Update.ReleaseMetadata.json"
+        }
+      }
     }
   },
   "IsUniversalMod": false,
